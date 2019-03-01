@@ -50,4 +50,11 @@ public class AuthorServiceImpl implements AuthorService {
 	public void update(Author author) {
 		repository.save(author);
 	}
+
+	@Override
+	public Author findById(Long id) {
+		Optional<Author> author = repository.findById(id);
+		return author.get();
+	}
+
 }

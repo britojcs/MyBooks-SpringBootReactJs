@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,14 +12,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Brito
  *
  */
 @Entity
 @Table(name = "BOOK")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Book {
-	
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +37,10 @@ public class Book {
 	@Column(name = "WEIGHT")
 	private BigDecimal weight;
 
-	@ManyToOne
-	@JoinColumn(name = "ID_AUTHOR")
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_AUTHOR", nullable = false)
 	private Author author;
-	
+
 	public Long getId() {
 		return id;
 	}

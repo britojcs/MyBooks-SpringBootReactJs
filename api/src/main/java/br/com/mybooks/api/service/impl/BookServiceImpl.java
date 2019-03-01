@@ -50,4 +50,11 @@ public class BookServiceImpl implements BookService {
 	public void update(Book author) {
 		repository.save(author);
 	}
+
+	@Override
+	public Book findById(Long id) {
+		Optional<Book> book = repository.findById(id);
+		return book.get();
+	}
+
 }

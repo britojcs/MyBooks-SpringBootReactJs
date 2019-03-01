@@ -17,5 +17,7 @@ public abstract interface BaseService<E> {
 	public void delete(Long id);
 
 	public void update(E entity);
+	
+	public E findById(Long id);
 
 }

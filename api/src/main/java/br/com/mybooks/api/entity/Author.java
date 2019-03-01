@@ -1,14 +1,13 @@
 package br.com.mybooks.api.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Brito
@@ -16,8 +15,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "AUTHOR")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Author {
-	
+
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +26,6 @@ public class Author {
 	@Column(name = "NAME")
 	private String name;
 
-	@OneToMany(mappedBy = "author")
-	private List<Book> books;
-	
 	public Long getId() {
 		return id;
 	}
@@ -43,14 +40,6 @@ public class Author {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(List<Book> books) {
-		this.books = books;
 	}
 
 	@Override

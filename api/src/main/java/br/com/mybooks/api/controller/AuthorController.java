@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.mybooks.api.entity.Author;
@@ -19,6 +20,7 @@ import br.com.mybooks.api.service.AuthorService;
  *
  */
 @RestController
+@RequestMapping("/author")
 public class AuthorController {
 
 	@Autowired
@@ -28,30 +30,30 @@ public class AuthorController {
 		this.service = service;
 	}
 
-	@GetMapping("/author")
+	@GetMapping
 	public List<Author> getList() {
 		List<Author> list = service.list();
 		return list;
 	}
 
-	@GetMapping("/author/{id}")
+	@GetMapping("/{id}")
 	public Author get(@PathVariable(name = "id") Long id) {
 		return service.get(id);
 	}
 
-	@PostMapping("/author")
-	public void save(Author author) {
+	@PostMapping
+	public void save(@RequestBody Author author) {
 		service.save(author);
 		System.out.println("Saved Successfully");
 	}
 
-	@DeleteMapping("/author/{id}")
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable(name = "id") Long id) {
 		service.delete(id);
 		System.out.println("Deleted Successfully");
 	}
 
-	@PutMapping("/author/{id}")
+	@PutMapping("/{id}")
 	public void update(@RequestBody Author author, @PathVariable(name = "id") Long id) {
 		Author a = service.get(id);
 		if (a != null)
